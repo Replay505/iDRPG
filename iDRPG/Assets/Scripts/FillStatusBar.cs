@@ -5,7 +5,6 @@ using UnityEngine;
 public class Slider : MonoBehaviour
 {
 
-    public Image fillimage;
     private Slider slider;
 
 

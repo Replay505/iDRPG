@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = .1f;
     public int moveCount = 4;
+    private bool attackPhaseCaller = false;
     public string direction;
 
     public Animator playerAnim;
@@ -57,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1 && moveCount != 0)
             {
                 //This if is for checking the tile infront of the direction and moving there
-                if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f), .2f, colliders))
+                if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f), .1f, colliders))
                 {
                     movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
                     moveCount--;
@@ -67,12 +68,30 @@ public class PlayerMovement : MonoBehaviour
             if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1 && moveCount != 0)
             {
                 //This if is for checking the tile infront of the direction and moving there
-                if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f), .2f, colliders))
+                if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f), .1f, colliders))
                 {
                     movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
                     moveCount--;
                 }
             }
+        }
+
+        if (moveCount == 0 && attackPhaseCaller == false)
+        {
+            AttackPhase();
+            attackPhaseCaller = true;
+        }
+    }
+
+    void AttackPhase()
+    {
+        if (Input.GetAxisRaw("AttackSubmit") == 1)
+        {
+            //Attack command here as well as animation
+            //After you attack, its the enemy's turn. Put reference to enemy turn here.
+            //For right now, we'll just make it our turn again.
+            attackPhaseCaller = false;
+            moveCount = 4;
         }
     }
 }

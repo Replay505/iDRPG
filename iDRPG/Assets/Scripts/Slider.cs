@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +19,7 @@ public class Slider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float fillValue = playerHealth.currentHealth / playerHealth.maxHealth;
+        float fillValue = playerHealth.currentHealth / 10;
         slider.value = fillValue;
     }
 }
